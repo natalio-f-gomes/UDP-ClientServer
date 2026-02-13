@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class UDPClient {
     private String message;
     private byte[] messageBytes;
-    private InetAddress clientIpAddress;
-    private final int clientPORT = 9001;
+    private InetAddress serverIPAddress;
+    private final int serverPORT = 9001;
     private byte[] receivedData;
     private DatagramSocket clientSocket;
     private String serverResponse;
@@ -20,7 +20,7 @@ public class UDPClient {
         receivedData = new byte[1024];
         try{
             clientSocket = new DatagramSocket();
-            clientIpAddress = InetAddress.getByName("localhost");
+            serverIPAddress = InetAddress.getByName("localhost");
 
         }catch (IOException e){
             System.out.println(e);
@@ -31,7 +31,7 @@ public class UDPClient {
 
     public void sendPacketToServer(){
         try{
-            DatagramPacket sendPacket = new DatagramPacket(messageBytes,messageBytes.length, clientIpAddress, clientPORT);
+            DatagramPacket sendPacket = new DatagramPacket(messageBytes,messageBytes.length, serverIPAddress, serverPORT);
             clientSocket.send(sendPacket);
         }catch (IOException e){
             System.out.println(e);
